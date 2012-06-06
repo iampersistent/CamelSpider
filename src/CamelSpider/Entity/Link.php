@@ -14,6 +14,7 @@ class Link extends ArrayCollection implements InterfaceLink
         if (!is_null($node) && $node instanceof \DOMElement) {
             $link = array(
                 'href' => $node->getAttribute('href'),
+                'rel'  => $node->getAttribute('rel'),
             );
         } elseif (is_string($node)) {
             $link['href'] = $node;
@@ -41,10 +42,16 @@ class Link extends ArrayCollection implements InterfaceLink
         return $this->get('href');
     }
 
+    public function getRel()
+    {
+        return $this->get('rel');
+    }
+
     public function isWaiting()
     {
         return  ($this->get('status') === 0) ? true : false;
     }
+
     public function isDone()
     {
         return  ($this->get('status') === 1) ? true : false;
@@ -85,10 +92,8 @@ class Link extends ArrayCollection implements InterfaceLink
         return $this;
     }
 
-
     public function toArray()
     {
         return $this->toMinimal()->toArray();
     }
-
 }
