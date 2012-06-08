@@ -23,8 +23,11 @@ abstract class AbstractSubscription extends ArrayCollection implements Interface
      */
     public function getFilter($type)
     {
-        $filters = $this->getFilters();
-        return $this->_explode($filters[$type]);
+        if ($filters = $this->getFilters() && isset($filters[$type])) {
+            return $this->_explode($filters[$type]);
+        }
+
+        return null;
     }
 
     public function getFilters()
