@@ -55,14 +55,8 @@ abstract class AbstractSubscription extends ArrayCollection implements Interface
 
     public function insideScope(Link $link)
     {
-        if (
-            substr($link->get('href'), 0, 4) == 'http' &&
-            !$this->inDomain($link->get('href'))
-        ) {
-            return false;
-        }
-
-        return true;
+        //make something cool with your DB!
+        return false;
     }
 
     public function isDone()
@@ -97,26 +91,16 @@ abstract class AbstractSubscription extends ArrayCollection implements Interface
         return $this;
     }
 
-    /**
-     * Returns an array from a value by exploding
-     *
-     * @param string $x   String to explode
-     * @param string $sep The separator (default to comma)
-     *
-     * @return array
-     */
-    public function _explode($x, $sep=',')
+    public function insideScope(Link $link)
     {
-        if (strpos($x, $sep) !== false) {
-            return explode($sep, $this->normalize($x));
-        } else {
-            return array($x);
+        if (
+            substr($link->get('href'), 0, 4) == 'http' && 
+            !$this->inDomain($link->get('href'))
+        ) {
+            return false;
         }
-    }
 
-    public function __toString()
-    {
-        return $this->getDomainString();
+        return true;
     }
 
     protected function inDomain($str)
@@ -130,6 +114,3 @@ abstract class AbstractSubscription extends ArrayCollection implements Interface
         }
     }
 }
-
-
-
